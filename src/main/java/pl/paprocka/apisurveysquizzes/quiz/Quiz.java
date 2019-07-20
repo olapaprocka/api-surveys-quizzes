@@ -28,7 +28,7 @@ public class Quiz {
 
     private LocalDate productionDate;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)//robi za repository
 //    @OrderBy("position")
     @JoinColumn(name = "quiz_id")
     private List<QuizQuestion> questions;

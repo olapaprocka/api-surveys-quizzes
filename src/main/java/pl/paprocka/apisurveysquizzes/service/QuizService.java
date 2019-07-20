@@ -2,6 +2,7 @@ package pl.paprocka.apisurveysquizzes.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.paprocka.apisurveysquizzes.quiz.Quiz;
 import pl.paprocka.apisurveysquizzes.quiz.QuizForm;
 import pl.paprocka.apisurveysquizzes.quiz.QuizRepository;
@@ -17,8 +18,8 @@ public class QuizService {
         this.quizRepository = quizRepository;
     }
 
-
-    public void quizForm(QuizForm quizForm) {
+@Transactional
+    public Quiz quizForm(QuizForm quizForm) {
 
 
         Quiz quiz = new Quiz();
@@ -28,8 +29,7 @@ public class QuizService {
 //        quiz.setAnswer2(quizForm.getAnswer2());
 //        quiz.setAnswer3(quizForm.getAnswer3());
 //        quiz.setAnswer4(quizForm.getAnswer4());
-
-        quizRepository.save(quiz);
+return    quizRepository.save(quiz);
 
 
     }

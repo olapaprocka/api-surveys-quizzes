@@ -2,6 +2,7 @@ package pl.paprocka.apisurveysquizzes;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +13,8 @@ import pl.paprocka.apisurveysquizzes.service.QuizService;
 
 import javax.validation.Valid;
 
-@RestController
+@Controller
+//@RestController
 //@RequestMapping("/quizzes")
 public class QuizController {
 
@@ -33,7 +35,7 @@ public class QuizController {
     public String showQuizForm(Model model) {
         model.addAttribute("quizForm", new QuizForm());
 
-        return "quizForm";
+        return "quiz/quizForm";
     }
 
 
@@ -41,10 +43,9 @@ public class QuizController {
     public String handleQuizForm(@ModelAttribute @Valid QuizForm quizForm,
                                  Model model){
 
+        quizService.quizForm(quizForm);
 
-         quizService.quizForm(quizForm);
-
-        return "quizForm";
+        return "/quiz";
     }
 //    private QuizService quizzes;
 //

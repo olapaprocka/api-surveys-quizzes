@@ -20,8 +20,11 @@ public class QuizQuestion {
 
 //    private Integer position;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "question_id")
     private Collection<QuizAnswer> answers;
+
+
+
 
 }
