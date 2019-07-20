@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz question!!!</title>
+</head>
+
+<body>
+
+
+<form method="post" th:action="@{quiz/quizQuestion}" th:object="${quizQuestion}">
+    questionText: <input name="questionText" type="text"  th:field="*{questionText}" >
+    <br>
+    <input type="submit" value="Add question">
+
+    <br>
+    <input type="submit" value="Add question">
+
+</form>
+<br>
+
+
+<a th:href="@{/quiz}">Twoje quiz</a>
+
+</body>
+</html>

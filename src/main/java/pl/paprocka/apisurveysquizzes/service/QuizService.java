@@ -3,9 +3,9 @@ package pl.paprocka.apisurveysquizzes.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.paprocka.apisurveysquizzes.quiz.Quiz;
-import pl.paprocka.apisurveysquizzes.quiz.QuizForm;
-import pl.paprocka.apisurveysquizzes.quiz.QuizRepository;
+import pl.paprocka.apisurveysquizzes.quiz.*;
+
+
 
 @Service
 public class QuizService {
@@ -18,24 +18,43 @@ public class QuizService {
         this.quizRepository = quizRepository;
     }
 
-@Transactional
+    @Transactional
     public Quiz quizForm(QuizForm quizForm) {
-
-
         Quiz quiz = new Quiz();
         quiz.setQuizName(quizForm.getQuizName());
-//        quiz.setQuestion(quizForm.getQuestion());
-//        quiz.setAnswer1(quizForm.getAnswer1());
-//        quiz.setAnswer2(quizForm.getAnswer2());
-//        quiz.setAnswer3(quizForm.getAnswer3());
-//        quiz.setAnswer4(quizForm.getAnswer4());
-return    quizRepository.save(quiz);
 
-
+        return quizRepository.save(quiz);
     }
 
 
-//    public Optional<Quiz> findById(Long id) {
+    @Transactional
+    public QuizQuestion quizQuestion(QuizQuestion quizQuestion) {
+        QuizQuestion questions = new QuizQuestion();
+        quizQuestion.setQuestionText(quizQuestion.getQuestionText());
+        return quizRepository.save(questions);
+    }
+
+
+    //        @Transactional
+//        public Quiz editQuiz (String oldName, String newName){
+//            editQuiz(oldName, newName);
+//        }
+//
+//        private void editQuizName (String oldName, String newName){
+//            Quiz quizName = quizRepository.findAllByQuizName(oldName).get();
+//            quizName.setQuizName(newName);
+//        }
+
+//
+////
+//    @Transactional
+//    public QuizAnswer quizAnswer(QuizAnswer quizAnswer) {
+//        QuizAnswer answers = new QuizAnswer();
+//        quizAnswer.setAnswerText(quizAnswer.getAnswerText());
+//        return quizRepository.save(answers);
+//    }
+
+    //    public Optional<Quiz> findById(Long id) {
 //        return quizRepository.findById(id);
 //    }
 //

@@ -9,5 +9,6 @@ import java.util.Optional;
 public interface QuizRepository extends JpaRepository<Quiz, Long> {
 
     Optional<Quiz> findAllByQuizName (String quizName);
+    Optional<Quiz> findAllByQuestions(String question);
 
 }

@@ -7,11 +7,15 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import pl.paprocka.apisurveysquizzes.quiz.Quiz;
 import pl.paprocka.apisurveysquizzes.quiz.QuizForm;
+import pl.paprocka.apisurveysquizzes.quiz.QuizQuestion;
 import pl.paprocka.apisurveysquizzes.quiz.QuizRepository;
 import pl.paprocka.apisurveysquizzes.service.QuizService;
+import pl.paprocka.apisurveysquizzes.user.User;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 //@RestController
@@ -31,6 +35,14 @@ public class QuizController {
     @Autowired
     QuizRepository quizRepository;
 
+
+    @GetMapping("/quizzes")
+    public String showQuizzes(Model model) {
+        List<Quiz> quizzes = quizRepository.findAll();
+        model.addAttribute("quizzes", quizzes);
+        return "quiz/showQuizzes";
+    }
+
     @GetMapping("/quiz")
     public String showQuizForm(Model model) {
         model.addAttribute("quizForm", new QuizForm());
@@ -44,9 +56,21 @@ public class QuizController {
                                  Model model){
 
         quizService.quizForm(quizForm);
-
-        return "/quiz";
+        model.addAttribute("quizQuestion", new QuizQuestion());
+        return "/quiz/quizQuestion";
     }
+//
+//    @PostMapping("/quizQuestion")
+//    public String handleQuizQuestion(@ModelAttribute @Valid QuizQuestion quizQuestion,
+//                                 Model model){
+//
+//        quizService.quizQuestion(quizQuestion);
+//
+//        return "/quiz/quizQuestion";
+//    }
+//
+
+
 //    private QuizService quizzes;
 //
 //    @Autowired

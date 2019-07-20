@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz answer</title>
+</head>
+
+<body>
+
+
+<form method="post" th:action="@{/answer}" th:object="${quizAnswer}">
+    answerText: <input name="answerText" type="text"  th:field="*{answerText}" >
+    <br>
+    <input type="submit" value="Add answer">
+</form>
+
+</body>
+</html>

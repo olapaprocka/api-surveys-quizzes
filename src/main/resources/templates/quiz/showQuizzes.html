@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Surveys and Quizzes!</title>
+<!--    <style>-->
+<!--        .error-style{-->
+<!--            color: red-->
+<!--        }-->
+
+<!--    </style>-->
+
+<!--    <div th:replace="fragments/header :: header-libs"></div>-->
+</head>
+<body>
+<h1>Quizy w systemie</h1>
+
+<p th:each="quiz : ${quizzes}">
+    <span th:text="${quiz.id}" /> | <span th:text="${quiz.quizName}" /> | <span th:text="${quiz.question}" /> <a th:href="@{/quiz/quiz(id=${quiz.id})}" >Edytuj</a>
+</p>
+
+<p id="paragraph1" class="error-style">
+    Should have red color!
+</p>
+Quiz id: <input id="quizId" type="number">
+<button id="getQuizButton">Show quiz</button>
+
+<div id="quiz">
+
+</div>
+</body>
+
+<script>
+
+    function getQuiz(id) {
+        $('#quiz').text('')
+        $.get(`http://localhost:8080/quiz/quiz?id=${id}`, function (data) {
+            console.log(data)
+            $('#quiz').text(`${data.id} QuizName ${data.quizName} ${data.questionText}`)
+        })
+    }
+    /// to jest wywoływane po załadowaniu całego dokumentu html
+    $(document).ready(function () {
+        // działanie zdefiniowane po kliknięciu na przycisk
+        $('#getQuizButton').click(function () {
+            console.log('button clicked')
+            let quizId = $('#quizId').val();
+            console.log(quizId)
+            if (quizId) {
+                // user id is not null
+                getQuiz(quizId);
+            } else {
+                // user id is null
+                $('#quiz')
+                    .text('Podaj ID quiz')
+            }
+        });
+       });
+
+
+
+</script>
+</body>
+</html>
