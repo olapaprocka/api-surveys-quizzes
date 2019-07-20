@@ -23,11 +23,11 @@ public class QuizService {
 
         Quiz quiz = new Quiz();
         quiz.setQuizName(quizForm.getQuizName());
-        quiz.setQuestion(quizForm.getQuestion());
-        quiz.setAnswer1(quizForm.getAnswer1());
-        quiz.setAnswer2(quizForm.getAnswer2());
-        quiz.setAnswer3(quizForm.getAnswer3());
-        quiz.setAnswer4(quizForm.getAnswer4());
+//        quiz.setQuestion(quizForm.getQuestion());
+//        quiz.setAnswer1(quizForm.getAnswer1());
+//        quiz.setAnswer2(quizForm.getAnswer2());
+//        quiz.setAnswer3(quizForm.getAnswer3());
+//        quiz.setAnswer4(quizForm.getAnswer4());
 
         quizRepository.save(quiz);
 
