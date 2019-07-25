@@ -30,7 +30,7 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 //.hasAuthority("ROLE_ADMIN")
                 .hasRole("ADMIN")
-                .antMatchers("/post/**").hasAnyRole("USER","ADMIN")
+                .antMatchers("/quiz/**").hasAnyRole("USER","ADMIN")
                 //.hasRole("USER"
                 .anyRequest().permitAll()
                 .and()

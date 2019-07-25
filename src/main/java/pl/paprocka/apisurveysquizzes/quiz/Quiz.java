@@ -11,13 +11,12 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Quiz {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "quizName", length = 100)
@@ -26,6 +25,7 @@ public class Quiz {
     @ManyToOne
     private User user;
 
+    @Column(name = "productionDate", length = 100)
     private LocalDate productionDate;
 
     @OneToMany(cascade = CascadeType.ALL)//robi za repository
@@ -33,4 +33,11 @@ public class Quiz {
     @JoinColumn(name = "quiz_id")
     private List<QuizQuestion> questions;
 
+    @Override
+    public String toString() {
+        return "Quiz{" +
+                "id=" + id +
+                ", quizName='" + quizName + '\'' +
+                '}';
+    }
 }

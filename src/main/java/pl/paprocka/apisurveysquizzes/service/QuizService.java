@@ -4,7 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.paprocka.apisurveysquizzes.quiz.*;
+import pl.paprocka.apisurveysquizzes.user.PermissionService;
+import pl.paprocka.apisurveysquizzes.user.User;
+import pl.paprocka.apisurveysquizzes.user.UserRepository;
 
+import java.util.Optional;
 
 
 @Service
@@ -13,25 +17,58 @@ public class QuizService {
 
     private QuizRepository quizRepository;
 
+    private QuestionRepository questionRepository;
+
+    private PermissionService permissionService;
+
+    private UserRepository userRepository;
+
+    private AnswerRepository answerRepository;
+
     @Autowired
-    public QuizService(QuizRepository quizRepository) {
+    public QuizService(QuizRepository quizRepository, QuestionRepository questionRepository,
+                       PermissionService permissionService, UserRepository userRepository,
+                       AnswerRepository answerRepository) {
         this.quizRepository = quizRepository;
+        this.questionRepository = questionRepository;
+        this.permissionService = permissionService;
+        this.userRepository = userRepository;
+        this.answerRepository = answerRepository;
     }
+
+
+
 
     @Transactional
     public Quiz quizForm(QuizForm quizForm) {
         Quiz quiz = new Quiz();
+        permissionService.getCurrentUserName();
+        Optional<User> u = userRepository.findByEmail(permissionService.getCurrentUserName());
         quiz.setQuizName(quizForm.getQuizName());
+        quiz.setUser(u.get());
 
         return quizRepository.save(quiz);
     }
 
+    @Transactional
+    public Quiz addQuizQuestion(Long quizId, String questionText) {
+        Quiz quiz = quizRepository.findById(quizId).get();
+        QuizQuestion question = new QuizQuestion();
+        question.setQuestionText(questionText);
+        quiz.getQuestions().add(question);
+        return quizRepository.saveAndFlush(quiz);
+//        return question;
+    }
+
 
     @Transactional
-    public QuizQuestion quizQuestion(QuizQuestion quizQuestion) {
-        QuizQuestion questions = new QuizQuestion();
-        quizQuestion.setQuestionText(quizQuestion.getQuestionText());
-        return quizRepository.save(questions);
+    public QuizQuestion addQuizQuestionAnswer(Long questionId, String answerText) {
+        QuizQuestion quizQuestion = questionRepository.findById(questionId).get();
+        QuizAnswer answer = new QuizAnswer();
+        answer.setAnswerText(answerText);
+        quizQuestion.getAnswers().add(answer);
+
+        return questionRepository.saveAndFlush(quizQuestion);
     }
 
 

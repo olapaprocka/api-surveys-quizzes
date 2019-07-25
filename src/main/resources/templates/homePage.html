@@ -13,35 +13,51 @@
 <body>
 <div th:replace="fragments/header :: header"></div>
 <h1> Surveys and Quizzes!!!</h1>
-<div sec:authorize="hasRole('USER')">
-    Has role USER
-</div>
+<!--<div sec:authorize="hasRole('USER')">-->
+<!--    Has role USER-->
+<!--</div>-->
 
-<div sec:authorize="hasRole('ADMIN')">
-    Has role ADMIN
-</div>
+<!--<div sec:authorize="hasRole('ADMIN')">-->
+<!--    Has role ADMIN-->
+<!--</div>-->
 
 
-Logged user: <span sec:authentication="name">Bob</span>
-Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
+<!--Logged user: <span sec:authentication="name">Bob</span>-->
+<!--Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>-->
 
 
 <!--<p th:if="${msg != null}" th:text="${msg}"></p>-->
-<p th:if="${@permissionService.isUserInAnyRole('ADMIN', 'USER')}">
-    Witaj zalogowany użytkowniku!
-</p>
+<!--<p th:if="${@permissionService.isUserInAnyRole('ADMIN', 'USER')}">-->
+<!--    Witaj zalogowany użytkowniku!-->
+<!--</p>-->
 
 <ol>
-    <li th:if="${@permissionService.isUser()}">
-        <a> Link dostępny dla usera</a>
+<!--    <li th:if="${@permissionService.isUser()}">-->
+<!--        <a> Link dostępny dla usera</a>-->
+<!--    </li>-->
 
-    </li>
 
     <li th:if="${@permissionService.isAdmin()}">
-        <a th:href="@{/admin/users}"> Edycja użytkowników</a>
+        <a th:href="@{/quiz/quizzes}"> Lista wszystkich Quizów w systemie</a>
     </li>
 
+
+    <li th:if="${@permissionService.isUser()}">
+        <a th:href="@{/quiz/quizzes}"> Lista Twoich Quizów</a>
+    </li>
+
+
+    <li th:if="${@permissionService.isUserInAnyRole('ADMIN', 'USER')}">
+        <a th:href="@{/quiz}"> Dodaj Quiz</a>
+    </li>
+
+
+    <li th:if="${username}">
+        <a th:href="@{/quiz/ansewrs}"> Twoje odpowiedzi do Quizów</a>
+    </li>
+
+
 </ol>
-<div th:replace="fragments/footer :: footer"></div>
+<!--<div th:replace="fragments/footer :: footer"></div>-->
 </body>
 </html>

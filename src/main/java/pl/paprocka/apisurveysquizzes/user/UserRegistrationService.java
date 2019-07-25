@@ -60,7 +60,7 @@ public class UserRegistrationService {
     @PostConstruct
         //często śe używa tego bean  to
         // po to aby każdym uruchomieniem aplikacji wykonało się coś
-    void init(){
+    void init() {
         System.out.println("User service after init!");
     }
 

@@ -4,24 +4,48 @@
 <head>
     <meta charset="UTF-8">
     <title>Quiz question!!!</title>
+
 </head>
 
 <body>
 
 
-<form method="post" th:action="@{quiz/quizQuestion}" th:object="${quizQuestion}">
+<form method="post" th:action="@{/quiz/quizQuestion}" th:object="${quizQuestion}">
+    <input type="hidden"  th:field="*{quizId}" >
     questionText: <input name="questionText" type="text"  th:field="*{questionText}" >
-    <br>
-    <input type="submit" value="Add question">
+
+<!--    <select name="questionText">-->
+<!--        <option th:value="''" th:text="'Pytanie'"></option>-->
+<!--        <option th:each="p : ${quizQuestion}" th:value="${p}" th:text="${p.questionText}"></option>-->
+<!--    </select>-->
+
+<!--    <select name="quizId">-->
+<!--        <option th:value="''" th:text="Quiz"></option>-->
+<!--        <option th:each="quiz : ${quizzes}" th:value="${quiz.id}" th:text="${quiz.questions}"></option>-->
+<!--    </select>-->
 
     <br>
     <input type="submit" value="Add question">
+<!--<button>Dodaj pytanie</button>-->
+    <br>
+<!--    <input type="submit" value="Add question">-->
 
 </form>
 <br>
 
+<h3 th:text="${quizQuestion.quiz.quizName}"></h3>
+
+<br>
+<p th:each="q : ${quizQuestion.quiz.questions}">
+    <span th:text="${q.questionText}"></span>
+</p>
+
+
+    <a th:href="@{/quiz/quizzes}"> Link do Quiz</a>
+
 
 <a th:href="@{/quiz}">Twoje quiz</a>
+
 
 </body>
 </html>

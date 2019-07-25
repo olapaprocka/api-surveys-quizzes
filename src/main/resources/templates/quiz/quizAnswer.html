@@ -9,11 +9,24 @@
 <body>
 
 
-<form method="post" th:action="@{/answer}" th:object="${quizAnswer}">
+<form method="post" th:action="@{/quiz/quizAnswer}" th:object="${quizAnswer}">
+    <input type="hidden"  th:field="*{questionId}" >
     answerText: <input name="answerText" type="text"  th:field="*{answerText}" >
     <br>
     <input type="submit" value="Add answer">
+
 </form>
+
+
+<br>
+<p th:each="q : ${quizQuestion.quiz.questions}">
+    <span th:text="${q.questionText}"></span>
+</p>
+<p th:each="qq : ${quizAnswer.quizQuestion.answers}">
+    <span th:text="${qq.answerText}"></span>
+</p>
+
+
 
 </body>
 </html>
