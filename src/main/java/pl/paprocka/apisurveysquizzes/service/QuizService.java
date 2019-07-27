@@ -55,15 +55,15 @@ public class QuizService {
         return questionRepository.saveAndFlush(quizQuestion);
     }
 
-//    @Transactional
-//    public EditQuizQuestion addEditQuizQuestion(Long questionId, String questionText) {
-//        QuizQuestion quizQuestion = questionRepository.findById(questionId).get();
-//        QuizAnswer answer = new QuizAnswer();
-//        answer.setAnswerText(answerText);
-//        quizQuestion.getAnswers().add(answer);
-//
-//        return questionRepository.saveAndFlush(quizQuestion);
-//    }
+    @Transactional
+    public EditQuizQuestion addEditQuizQuestion(Long questionId, String questionText) {
+        EditQuizQuestion editQuizQuestion = questionRepository.findById(questionId).get();
+        QuizAnswer answer = new QuizAnswer();
+        answer.setAnswerText(answerText);
+        quizQuestion.getAnswers().add(answer);
+
+        return questionRepository.saveAndFlush(quizQuestion);
+    }
     @Transactional
     public Quiz quizForm(QuizForm quizForm) {
         Quiz quiz = new Quiz();

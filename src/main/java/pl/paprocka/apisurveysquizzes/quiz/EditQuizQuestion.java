@@ -18,4 +18,11 @@ public class EditQuizQuestion {
     private Long questionId;
     private String questionText;
 
+
+    public static EditQuizQuestion create (QuizQuestion quizQuestion){
+    EditQuizQuestion form = new EditQuizQuestion();
+    form.setQuestionId(quizQuestion.getId());
+    form.setQuestionText(quizQuestion.getQuestionText());
+    return form;
+}
 }
