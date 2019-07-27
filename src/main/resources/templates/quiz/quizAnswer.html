@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" >
->
 <head>
     <meta charset="UTF-8">
     <title>Quiz answer</title>
@@ -8,31 +7,21 @@
 
 <body>
 
+<h3>Odpowiedzi do quiz-u: <span th:text="${answer.quiz.quizName}"></span></h3>
+<form method="post" th:action="@{/quiz/quizAnswer}" th:object="${answer}">
+    <input type="hidden" name="quizId" th:value="${answer.quiz.id}" >
 
-<form method="post" th:action="@{/quiz/quizAnswer}" th:object="${quizAnswer}">
-    <input type="hidden"  th:field="*{questionId}" >
-    answerText: <input name="answerText" type="text"  th:field="*{answerText}" >
-    <br>
-    <input type="submit" value="Add answer">
+    <ul th:each="item, stat : ${answer.answers}">
+        <li>
+            Pytanie: <span th:text="${item.questionText}"></span>
+            <br>
+            Odpowiedź: <input type="text" th:field="*{answers[__${stat.index}__].answerText}" />
+            <input type="hidden" th:field="*{answers[__${stat.index}__].questionId}" />
+        </li>
+    </ul>
 
+    <input type="submit" value="Add answers">
 </form>
-
-
-<br>
-<p th:each="q : ${quizQuestion.quiz.questions}">
-    <span th:text="${q.questionText}"></span>
-</p>
-<p th:each="qq : ${quizAnswer.quizQuestion.answers}">
-    <span th:text="${qq.answerText}"></span>
-</p>
-
-
-
-
-<br>
-<a th:href="@{/quiz/quizzes}"> Lista Quiz</a>
-
-
 
 </body>
 </html>

@@ -36,7 +36,12 @@ public class QuizService {
         this.answerRepository = answerRepository;
     }
 
-
+    @Transactional
+    public Quiz addAnswers(AnswerForm answerForm) {
+        Quiz quiz = quizRepository.findById(answerForm.getQuizId()).get();
+        // trzeba zapisać dane tutaj do bazy
+        return quiz;
+    }
 
 
     @Transactional

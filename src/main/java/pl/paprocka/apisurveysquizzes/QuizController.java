@@ -1,6 +1,7 @@
 package pl.paprocka.apisurveysquizzes;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +15,9 @@ import pl.paprocka.apisurveysquizzes.user.UserRepository;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+@Slf4j
 @Controller
 public class QuizController {
 
@@ -72,6 +75,38 @@ public class QuizController {
         return "/quiz/quizAnswer";
     }
 
+    @GetMapping("/quiz/edit")
+    public String goToQuizEdit(@RequestParam Long id, Model model) {
+        log.info("Prepare the quiz for edit with id={}", id);
+        // todo prepare model
+        return "/quiz/editQuiz";
+    }
+
+    @GetMapping("/quiz/answer")
+    public String goToQuizAnswer(@RequestParam Long id, Model model) {
+        log.info("Prepare the quiz for answer questions with id={}", id);
+        Quiz quiz = quizRepository.findById(id).get();
+//        model.addAttribute("quiz", quiz);
+        List<QuizAnswerForm> answers = quiz.getQuestions()
+                .stream()
+                .map(QuizAnswerForm::new)
+                .collect(Collectors.toList());
+        model.addAttribute("answer", new AnswerForm(quiz, answers, quiz.getId()));
+        return "/quiz/quizAnswer";
+    }
+
+    @PostMapping("/quiz/quizAnswer")
+    public String handleQuizAnswer(@ModelAttribute("answer") @Valid AnswerForm answer, Model model) {
+        System.out.println(answer);
+        //
+//        System.out.println(quizAnswerForm);
+//        QuizQuestion qq = quizService.addQuizQuestionAnswer(quizAnswerForm.getQuestionId(), quizAnswerForm.getAnswerText());
+//        QuizAnswerForm answerForm = new QuizAnswerForm(qq);
+//        answerForm.setQuestionId(quizAnswerForm.getQuestionId());
+//        model.addAttribute("quizAnswer", quizAnswerForm);
+        return "redirect:/quiz/quizzes";
+    }
+
     @PostMapping("/quiz")
     public String handleQuizForm(@ModelAttribute @Valid QuizForm quizForm, Model model) {
 
@@ -90,16 +125,6 @@ public class QuizController {
         model.addAttribute("quizQuestion", form);
 
         return "/quiz/quizQuestion";
-    }
-
-    @PostMapping("/quiz/quizAnswer")
-    public String handleQuizAnswer(@ModelAttribute @Valid QuizAnswerForm quizAnswerForm, Model model) {
-        System.out.println(quizAnswerForm);
-        QuizQuestion qq = quizService.addQuizQuestionAnswer(quizAnswerForm.getQuestionId(), quizAnswerForm.getAnswerText());
-        QuizAnswerForm answerForm = new QuizAnswerForm(qq);
-        answerForm.setQuestionId(quizAnswerForm.getQuestionId());
-        model.addAttribute("quizAnswer", quizAnswerForm);
-        return "/quiz/quizAnswer";
     }
 
     @PutMapping

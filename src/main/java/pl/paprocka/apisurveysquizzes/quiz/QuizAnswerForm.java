@@ -11,14 +11,12 @@ import lombok.ToString;
 @NoArgsConstructor
 public class QuizAnswerForm {
 
-
     public QuizAnswerForm(QuizQuestion quizQuestion) {
-        this.quizQuestion = quizQuestion;
+        this.questionText = quizQuestion.getQuestionText();
         this.questionId = quizQuestion.getId();
     }
 
-
     private Long questionId;
     private String answerText;
-    private QuizQuestion quizQuestion;
+    private String questionText;
 }
