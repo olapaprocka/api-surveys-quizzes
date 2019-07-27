@@ -65,7 +65,12 @@ public class QuizController {
         return "/quiz/quizQuestion";
     }
 
+    @GetMapping("/quiz/quizAnswer")
+    public String showQuizAnswer(Model model) {
+        model.addAttribute("quizAnswer", new QuizAnswer());
 
+        return "/quiz/quizAnswer";
+    }
 
     @PostMapping("/quiz")
     public String handleQuizForm(@ModelAttribute @Valid QuizForm quizForm, Model model) {

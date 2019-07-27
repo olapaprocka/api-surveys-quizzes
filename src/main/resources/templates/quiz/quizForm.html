@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
->
+
 <head>
     <meta charset="UTF-8">
     <title>Quiz!!!</title>
+    <div th:replace="fragments/header :: header-libs"></div>
 </head>
 
 <body>
@@ -13,9 +14,11 @@
 <!--Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>-->
 
 
+<!--/*@thymesVar id="quizForm" type=""*/-->
 <form method="post" th:action="@{/quiz}" th:object="${quizForm}">
-    quizName: <input name="quizName" type="text"  th:field="*{quizName}" >
-    
+    Nazwa Quiz: <input name="quizName" type="text"  th:field="*{quizName}" >
+<!--    <br>-->
+<!--    user: <input name="user" type="text" th:field="*{user}">-->
     <br>
     <input type="submit" value="Dodaj Quiz">
 
