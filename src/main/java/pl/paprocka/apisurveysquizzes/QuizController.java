@@ -45,6 +45,14 @@ public class QuizController {
     @Autowired
     AnswerRepository answerRepository;
 
+
+    @GetMapping("/quiz")
+    public String showQuizForm(Model model) {
+        model.addAttribute("quizForm", new QuizForm());
+
+        return "/quiz/quizForm";
+    }
+
     @GetMapping("/quiz/quizzes")
     public String showQuizzes(Model model) {
         permissionService.getCurrentUserName();
@@ -62,24 +70,16 @@ public class QuizController {
         return "/quiz/showQuestionAnswer";
     }
 
-    @GetMapping("/quiz")
-    public String showQuizForm(Model model) {
-        model.addAttribute("quizForm", new QuizForm());
-
-        return "/quiz/quizForm";
-    }
 
     @GetMapping("/quiz/quizQuestion")
     public String showQuizQuestion(Model model) {
         model.addAttribute("quizQuestion", new QuizQuestion());
-
         return "/quiz/quizQuestion";
     }
 
     @GetMapping("/quiz/quizAnswer")
     public String showQuizAnswer(Model model) {
         model.addAttribute("quizAnswer", new QuizAnswer());
-
         return "/quiz/quizAnswer";
     }
 
@@ -107,7 +107,6 @@ public class QuizController {
     }
 
 
-
     @GetMapping("/quiz/answer")
     public String goToQuizAnswer(@RequestParam Long id, Model model) {
         log.info("Prepare the quiz for answer questions with id={}", id);
@@ -129,13 +128,18 @@ public class QuizController {
     @PostMapping("/quiz/quizAnswer")
     public String handleQuizAnswer(@ModelAttribute("answer") @Valid AnswerForm answer, Model model) {
         System.out.println(answer);
-        //
-//        System.out.println(quizAnswerForm);
-//        QuizQuestion qq = quizService.addQuizQuestionAnswer(quizAnswerForm.getQuestionId(), quizAnswerForm.getAnswerText());
-//        QuizAnswerForm answerForm = new QuizAnswerForm(qq);
-//        answerForm.setQuestionId(quizAnswerForm.getQuestionId());
-//        model.addAttribute("quizAnswer", quizAnswerForm);
         return "redirect:/quiz/quizzes";
+    }
+
+
+
+    @PostMapping("/quiz/answer")
+    public String addQuizAnswer(@ModelAttribute @Valid QuizAnswerForm quizAnswerForm, Model model) {
+        QuizQuestion qq = quizService.addQuizQuestionAnswer(quizAnswerForm.getQuestionId(), quizAnswerForm.getAnswerText());
+        QuizAnswerForm answerForm = new QuizAnswerForm(qq);
+        answerForm.setQuestionId(quizAnswerForm.getQuestionId());
+        model.addAttribute("quizAnswer", quizAnswerForm);
+        return "/quiz/quizAnswer";
     }
 
     @PostMapping("/quiz")
@@ -180,16 +184,6 @@ public class QuizController {
         return "/quiz/quizQuestion";
     }
 
-
-
-    @PostMapping("/quiz/quizAnswer")
-    public String addQuizAnswer(@ModelAttribute @Valid QuizAnswerForm quizAnswerForm, Model model) {
-        QuizQuestion qq = quizService.addQuizQuestionAnswer(quizAnswerForm.getQuestionId(), quizAnswerForm.getAnswerText());
-        QuizAnswerForm answerForm = new QuizAnswerForm(qq);
-        answerForm.setQuestionId(quizAnswerForm.getQuestionId());
-        model.addAttribute("quizAnswer", quizAnswerForm);
-        return "/quiz/quizAnswer";
-    }
 
 
 
