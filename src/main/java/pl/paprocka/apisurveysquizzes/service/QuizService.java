@@ -9,7 +9,10 @@ import pl.paprocka.apisurveysquizzes.user.PermissionService;
 import pl.paprocka.apisurveysquizzes.user.User;
 import pl.paprocka.apisurveysquizzes.user.UserRepository;
 
+import javax.persistence.Id;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -26,6 +29,7 @@ public class QuizService {
 
     private AnswerRepository answerRepository;
 
+
     @Autowired
     public QuizService(QuizRepository quizRepository, QuestionRepository questionRepository,
                        PermissionService permissionService, UserRepository userRepository,
@@ -36,15 +40,19 @@ public class QuizService {
         this.userRepository = userRepository;
         this.answerRepository = answerRepository;
     }
+    public List<QuizQuestion> showQuiz(Long id)
+    {
+        Quiz quiz =  quizRepository.findById(id).get();
+       return  quiz.getQuestions();
 
-    @Transactional
-    public Quiz addAnswers(AnswerForm answerForm) {
-        Quiz quiz = quizRepository.findById(answerForm.getQuizId()).get();
-        quiz.setId(answerForm.getQuizId());
-
-        // trzeba zapisać dane tutaj do bazy
-        return quizRepository.save(quiz);
     }
+
+    public List<String> findAnswers(QuizQuestion quizQuestion )
+    {
+       return quizQuestion.getAnswers().stream().map(QuizAnswer::getAnswerText).collect(Collectors.toList());
+    }
+
+
     @Transactional
     public QuizQuestion addQuizQuestionAnswer(Long questionId, String answerText) {
         QuizQuestion quizQuestion = questionRepository.findById(questionId).get();

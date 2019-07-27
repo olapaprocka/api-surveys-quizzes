@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>Show Question Answer</title>
+</head>
+<body>
+
+<ul th:each="q : ${quizQuestion}">
+    <li>
+        <div th:text="${q.questionText}"></div>
+        <ul th:each="a : ${q.answers}">
+            <li>
+                <div th:text="${a.id}"></div>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+
+
+</body>
+</html>

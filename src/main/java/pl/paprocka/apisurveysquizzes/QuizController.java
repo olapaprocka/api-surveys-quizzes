@@ -13,6 +13,7 @@ import pl.paprocka.apisurveysquizzes.user.User;
 import pl.paprocka.apisurveysquizzes.user.UserRepository;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -54,6 +55,13 @@ public class QuizController {
         return "/quiz/showQuizzes";
     }
 
+    @GetMapping("/quiz/show")
+    public String showQuizQuestionAnswer(@RequestParam Long id, Model model) {
+        List<QuizQuestion> ListQuestion = quizService.showQuiz(id);
+        model.addAttribute("quizQuestion", ListQuestion);
+        return "/quiz/showQuestionAnswer";
+    }
+
     @GetMapping("/quiz")
     public String showQuizForm(Model model) {
         model.addAttribute("quizForm", new QuizForm());
@@ -91,7 +99,6 @@ public class QuizController {
     }
 
 
-
     @PostMapping("/quiz/edit")
     public String handleQuizEdit(@ModelAttribute (name = "quiz") @Valid QuestionForm editQuizQuestion, Model model) {
         quizService.addEditQuizQuestion(editQuizQuestion);
@@ -113,6 +120,11 @@ public class QuizController {
         model.addAttribute("answer", new AnswerForm(quiz, answers, quiz.getId()));
         return "/quiz/quizAnswer";
     }
+
+
+
+
+
 
     @PostMapping("/quiz/quizAnswer")
     public String handleQuizAnswer(@ModelAttribute("answer") @Valid AnswerForm answer, Model model) {
@@ -167,6 +179,21 @@ public class QuizController {
 
         return "/quiz/quizQuestion";
     }
+
+
+
+    @PostMapping("/quiz/quizAnswer")
+    public String addQuizAnswer(@ModelAttribute @Valid QuizAnswerForm quizAnswerForm, Model model) {
+        QuizQuestion qq = quizService.addQuizQuestionAnswer(quizAnswerForm.getQuestionId(), quizAnswerForm.getAnswerText());
+        QuizAnswerForm answerForm = new QuizAnswerForm(qq);
+        answerForm.setQuestionId(quizAnswerForm.getQuestionId());
+        model.addAttribute("quizAnswer", quizAnswerForm);
+        return "/quiz/quizAnswer";
+    }
+
+
+
+
 
 
     @PutMapping("/quiz/quizAnswer")
