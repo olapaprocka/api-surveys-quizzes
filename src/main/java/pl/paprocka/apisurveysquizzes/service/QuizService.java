@@ -56,14 +56,13 @@ public class QuizService {
     }
 
     @Transactional
-    public EditQuizQuestion addEditQuizQuestion(Long questionId, String questionText) {
-        EditQuizQuestion editQuizQuestion = questionRepository.findById(questionId).get();
-        QuizAnswer answer = new QuizAnswer();
-        answer.setAnswerText(answerText);
-        quizQuestion.getAnswers().add(answer);
-
-        return questionRepository.saveAndFlush(quizQuestion);
+    public void addEditQuizQuestion(QuestionForm questionForm) {
+        questionForm.getQuestions().forEach(q -> {
+            QuizQuestion question = questionRepository.findById(q.getQuestionId()).get();
+            question.setQuestionText(q.getQuestionText());
+        });
     }
+
     @Transactional
     public Quiz quizForm(QuizForm quizForm) {
         Quiz quiz = new Quiz();

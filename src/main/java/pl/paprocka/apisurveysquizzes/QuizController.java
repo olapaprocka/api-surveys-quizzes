@@ -93,12 +93,9 @@ public class QuizController {
 
 
     @PostMapping("/quiz/edit")
-    public String handleQuizEdit(@ModelAttribute (name = "quiz") @Valid EditQuizQuestion editQuizQuestion, Model model) {
-
-//        Quiz q = quizService.addEditQuizQuestion(editQuizQuestion.getQuestionId(), quizQuestion.getQuestionText());
-//        QuizQuestionForm form = new QuizQuestionForm(q);
-//        model.addAttribute("quizQuestion", form);
-log.info("cos{}", editQuizQuestion);
+    public String handleQuizEdit(@ModelAttribute (name = "quiz") @Valid QuestionForm editQuizQuestion, Model model) {
+        quizService.addEditQuizQuestion(editQuizQuestion);
+        log.info("{}", editQuizQuestion);
         return "redirect:/quiz/quizzes";
     }
 
