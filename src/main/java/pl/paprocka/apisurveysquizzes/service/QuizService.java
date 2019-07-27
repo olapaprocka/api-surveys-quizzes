@@ -1,5 +1,6 @@
 package pl.paprocka.apisurveysquizzes.service;
 
+import org.aspectj.weaver.patterns.TypePatternQuestions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,11 +40,30 @@ public class QuizService {
     @Transactional
     public Quiz addAnswers(AnswerForm answerForm) {
         Quiz quiz = quizRepository.findById(answerForm.getQuizId()).get();
+        quiz.setId(answerForm.getQuizId());
+
         // trzeba zapisać dane tutaj do bazy
-        return quiz;
+        return quizRepository.save(quiz);
+    }
+    @Transactional
+    public QuizQuestion addQuizQuestionAnswer(Long questionId, String answerText) {
+        QuizQuestion quizQuestion = questionRepository.findById(questionId).get();
+        QuizAnswer answer = new QuizAnswer();
+        answer.setAnswerText(answerText);
+        quizQuestion.getAnswers().add(answer);
+
+        return questionRepository.saveAndFlush(quizQuestion);
     }
 
-
+//    @Transactional
+//    public EditQuizQuestion addEditQuizQuestion(Long questionId, String questionText) {
+//        QuizQuestion quizQuestion = questionRepository.findById(questionId).get();
+//        QuizAnswer answer = new QuizAnswer();
+//        answer.setAnswerText(answerText);
+//        quizQuestion.getAnswers().add(answer);
+//
+//        return questionRepository.saveAndFlush(quizQuestion);
+//    }
     @Transactional
     public Quiz quizForm(QuizForm quizForm) {
         Quiz quiz = new Quiz();
@@ -66,15 +86,7 @@ public class QuizService {
     }
 
 
-    @Transactional
-    public QuizQuestion addQuizQuestionAnswer(Long questionId, String answerText) {
-        QuizQuestion quizQuestion = questionRepository.findById(questionId).get();
-        QuizAnswer answer = new QuizAnswer();
-        answer.setAnswerText(answerText);
-        quizQuestion.getAnswers().add(answer);
 
-        return questionRepository.saveAndFlush(quizQuestion);
-    }
 
 
     //        @Transactional

@@ -79,8 +79,30 @@ public class QuizController {
     public String goToQuizEdit(@RequestParam Long id, Model model) {
         log.info("Prepare the quiz for edit with id={}", id);
         // todo prepare model
+        Quiz quiz = quizRepository.findById(id).get();
+        List<EditQuizQuestion> questions = quiz.getQuestions()
+                .stream()
+                .map(EditQuizQuestion::new)
+                .collect(Collectors.toList());
+
+     model.addAttribute("quiz", new QuestionForm(quiz, questions, quiz.getId()));
+
         return "/quiz/editQuiz";
     }
+
+
+
+    @PostMapping("/quiz/edit")
+    public String handleQuizEdit(@ModelAttribute (name = "quiz") @Valid EditQuizQuestion editQuizQuestion, Model model) {
+
+//        Quiz q = quizService.addEditQuizQuestion(editQuizQuestion.getQuestionId(), quizQuestion.getQuestionText());
+//        QuizQuestionForm form = new QuizQuestionForm(q);
+//        model.addAttribute("quizQuestion", form);
+log.info("cos{}", editQuizQuestion);
+        return "redirect:/quiz/quizzes";
+    }
+
+
 
     @GetMapping("/quiz/answer")
     public String goToQuizAnswer(@RequestParam Long id, Model model) {

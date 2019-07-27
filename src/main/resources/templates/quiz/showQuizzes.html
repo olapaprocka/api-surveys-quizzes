@@ -17,7 +17,9 @@
 
 <p th:each="quiz : ${quizzes}">
     <span th:text="${quiz.id}" /> | <span th:text="${quiz.quizName}" />
+    <br>
     <a th:href="@{/quiz/edit(id=${quiz.id})}" >Edytuj</a> |
+    <a th:href="@{/quiz/show(id=${quiz.id})}" >Przeglądaj</a> |
     <a th:href="@{/quiz/answer(id=${quiz.id})}" >Odpowiedz</a>
 </p>
 

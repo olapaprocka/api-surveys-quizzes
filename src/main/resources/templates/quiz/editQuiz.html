@@ -6,5 +6,23 @@
 </head>
 <body>
     Edit quiz here
+
+    <h3>Odpowiedzi do quiz-u: <span th:text="${quiz.quiz.quizName}"></span></h3>
+    <form method="post" th:action="@{/quiz/edit}" th:object="${quiz}">
+        <input type="hidden" name="quizId" th:value="${quiz.quiz.id}" >
+
+        <ul th:each="item, stat : ${quiz.questions}">
+            <li>
+                Pytanie: <span th:text="${item.questionText}"></span>
+                <br>
+                Pytanie: <input type="text" th:field="*{questions[__${stat.index}__].questionText}" />
+                <input type="hidden" th:field="*{questions[__${stat.index}__].questionId}" />
+            </li>
+        </ul>
+
+        <input type="submit" value="Zapisz">
+    </form>
+
+
 </body>
 </html>

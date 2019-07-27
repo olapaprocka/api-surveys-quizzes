@@ -4,16 +4,14 @@ import lombok.*;
 
 import java.util.List;
 
-@ToString
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 @AllArgsConstructor
-public class AnswerForm {
-
-
+public class QuestionForm {
 
     private Quiz quiz;
-    private List<QuizAnswerForm> answers;
+    private List<EditQuizQuestion> questions;
     private Long quizId;
 }
