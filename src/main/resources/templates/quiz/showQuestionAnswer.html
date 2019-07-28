@@ -11,7 +11,7 @@
         <div th:text="${q.questionText}"></div>
         <ul th:each="a : ${q.answers}">
             <li>
-                <div th:text="${a.id}"></div>
+                <span th:text="${a.id}"></span> | <span th:text="${a.answerText}" />
             </li>
         </ul>
     </li>

@@ -22,8 +22,6 @@ public class QuizQuestion {
     @Column(name = "question_text")
     private String questionText;
 
-//    private Integer position;
-
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "question_id")
     private Collection<QuizAnswer> answers;

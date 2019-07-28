@@ -120,18 +120,11 @@ public class QuizController {
         return "/quiz/quizAnswer";
     }
 
-
-
-
-
-
     @PostMapping("/quiz/quizAnswer")
     public String handleQuizAnswer(@ModelAttribute("answer") @Valid AnswerForm answer, Model model) {
-        System.out.println(answer);
+        quizService.addQuizAnswers(answer);
         return "redirect:/quiz/quizzes";
     }
-
-
 
     @PostMapping("/quiz/answer")
     public String addQuizAnswer(@ModelAttribute @Valid QuizAnswerForm quizAnswerForm, Model model) {
