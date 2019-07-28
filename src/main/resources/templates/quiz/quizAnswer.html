@@ -3,9 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Quiz answer</title>
+    <div th:replace="fragments/header :: header-libs"></div>
 </head>
 
 <body>
+<br>
+<div th:replace="fragments/header :: header"></div>
+
+<br>
 
 <h3>Odpowiedzi do quiz-u: <span th:text="${answer.quiz.quizName}"></span></h3>
 <form method="post" th:action="@{/quiz/quizAnswer}" th:object="${answer}">

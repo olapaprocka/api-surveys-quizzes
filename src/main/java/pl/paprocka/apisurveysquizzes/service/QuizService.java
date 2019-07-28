@@ -101,6 +101,8 @@ public class QuizService {
             QuizQuestion quizQuestion = questionRepository.findById(a.getQuestionId()).get();
             QuizAnswer quizAnswer = new QuizAnswer();
             quizAnswer.setAnswerText(a.getAnswerText());
+            Optional<User> user = userRepository.findByEmail(permissionService.getCurrentUserName());
+            quizAnswer.setUser(user.get());
             quizQuestion.getAnswers().add(quizAnswer);
             questionRepository.save(quizQuestion);
         });

@@ -1,36 +1,28 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      >
 <head>
     <meta charset="UTF-8">
-    <title>Surveys and Quizzes!</title>
+    <title>All Quizzes</title>
     <div th:replace="fragments/header :: header-libs"></div>
-<!--    <style>-->
-<!--        .error-style{-->
-<!--            color: red-->
-<!--        }-->
 
-<!--    </style>-->
-
-<!--    <div th:replace="fragments/header :: header-libs"></div>-->
 </head>
 <body>
 <br>
 <div th:replace="fragments/header :: header"></div>
 <br>
 
+
 <h1>Quiz lista</h1>
 
 
-<p th:each="quiz : ${quizzes}">
+<p th:each="quiz : ${quizzesAll}">
     <span th:text="${quiz.id}" /> | <span th:text="${quiz.quizName}" />
     <br>
-    <a th:href="@{/quiz/edit(id=${quiz.id})}" >Edytuj</a> |
+
     <a th:href="@{/quiz/show(id=${quiz.id})}" >Przeglądaj</a> |
     <a th:href="@{/quiz/answer(id=${quiz.id})}" >Odpowiedz</a>
 </p>
-
-</body>
-
 
 </body>
 </html>

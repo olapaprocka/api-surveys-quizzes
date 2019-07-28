@@ -63,6 +63,14 @@ public class QuizController {
         return "/quiz/showQuizzes";
     }
 
+    @GetMapping("/quiz/quizzesAll")
+    public String showAllQuizzes(Model model) {
+
+        model.addAttribute("quizzesAll", quizRepository.findAll());
+
+        return "/quiz/showAllQuizzes";
+    }
+
     @GetMapping("/quiz/show")
     public String showQuizQuestionAnswer(@RequestParam Long id, Model model) {
         List<QuizQuestion> ListQuestion = quizService.showQuiz(id);
@@ -176,11 +184,6 @@ public class QuizController {
 
         return "/quiz/quizQuestion";
     }
-
-
-
-
-
 
 
     @PutMapping("/quiz/quizAnswer")

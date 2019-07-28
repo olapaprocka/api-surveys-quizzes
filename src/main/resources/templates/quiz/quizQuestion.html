@@ -4,11 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Quiz question!!!</title>
-
+    <div th:replace="fragments/header :: header-libs"></div>
 </head>
 
 <body>
+<br>
+<div th:replace="fragments/header :: header"></div>
+<br>
 
+<!--<h3>Pytania do quiz-u: <span th:text="${answer.quiz.quizName}"></span></h3>-->
 
 <form method="post" th:action="@{/quiz/quizQuestion}" th:object="${quizQuestion}">
     <input type="hidden"  th:field="*{quizId}" >

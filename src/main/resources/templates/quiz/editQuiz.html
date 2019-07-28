@@ -3,10 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Quiz</title>
+    <div th:replace="fragments/header :: header-libs"></div>
 </head>
 <body>
+<br>
+<div th:replace="fragments/header :: header"></div>
+<br>
     Edit quiz here
-
+<br>
     <h3>Odpowiedzi do quiz-u: <span th:text="${quiz.quiz.quizName}"></span></h3>
     <form method="post" th:action="@{/quiz/edit}" th:object="${quiz}">
         <input type="hidden" name="quizId" th:value="${quiz.quiz.id}" >
