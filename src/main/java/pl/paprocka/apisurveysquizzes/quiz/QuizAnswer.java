@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pl.paprocka.apisurveysquizzes.user.User;
 
 import javax.persistence.*;
 
@@ -20,16 +21,19 @@ public class QuizAnswer {
 
     @Column(name = "answer_text")
     private String answerText;
+//
+//    @Column(name = "username")
+//    private String username;
 
-    @Column(name = "username")
-    private String username;
+    @ManyToOne
+    private User user;
 
     @Override
     public String toString() {
         return "QuizAnswer{" +
                 "id=" + id +
                 ", answerText='" + answerText + '\'' +
-                ", username='" + username + '\'' +
+                ", user='" + user + '\'' +
                 '}';
     }
 }

@@ -55,8 +55,13 @@ public class QuizService {
     public QuizQuestion addQuizQuestionAnswer(Long questionId, String answerText) {
         QuizQuestion quizQuestion = questionRepository.findById(questionId).get();
         QuizAnswer answer = new QuizAnswer();
+        permissionService.getCurrentUserName();
+        Optional<User> user = userRepository.findByEmail(permissionService.getCurrentUserName());
         answer.setAnswerText(answerText);
+        answer.setUser(user.get());
         quizQuestion.getAnswers().add(answer);
+
+
 
         return questionRepository.save(quizQuestion);
     }
